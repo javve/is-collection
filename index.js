@@ -39,6 +39,19 @@ module.exports = function isCollection(obj) {
               return 2
             }
         } catch (ex) {}
+      case 'function':
+        if (isNodeList(obj)) return 2
+        try {
+          // indexed, but no tagName (element) or scrollTo/document (window. From DOM.isWindow test which we can't use here),
+          // or functions without apply/call (Safari
+          // HTMLElementCollection bug).
+          if ('length' in obj
+              && !obj.tagName
+            && !(obj.scrollTo && obj.document)
+            && !obj.apply) {
+              return 2
+            }
+        } catch (ex) {}
       default:
         return 0
     }
