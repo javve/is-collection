@@ -22,7 +22,6 @@ var typeOf = require('type')
  **/
 module.exports = function isCollection(obj) {
   var type = typeOf(obj)
-  console.log('typeOf', obj, type)
   if (type === 'array') return 1
     switch (type) {
       case 'arguments': return 2
